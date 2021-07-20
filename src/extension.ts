@@ -25,8 +25,11 @@ export type QCfg = {
 export function activate(context: vscode.ExtensionContext) {
 
 	let api = {
-		getToken(qcfg: QCfg) {
-			return md5(qcfg.password);
+		auth(qcfg: QCfg) {
+			qcfg.password = md5(qcfg.password);
+			return new Promise((resolve, reject) => {
+				resolve(qcfg);
+			});
 		},
 	};
 
